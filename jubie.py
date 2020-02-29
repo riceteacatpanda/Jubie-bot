@@ -22,6 +22,10 @@ async def on_raw_reaction_add(reaction):
     ch = client.get_channel(671167077930762250)
     channelis = client.get_channel(channelid)
     message = await channelis.fetch_message(messageid)
+
+    if message.author.id == 671166284842663996:
+        return # Prevent bot messages being blobbed
+
     #count votes
     num_votes=0
     for reaction in message.reactions:
