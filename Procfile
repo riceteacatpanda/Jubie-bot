@@ -1,1 +1,1 @@
-worker: python3 adv.py
+worker: python3 jubie.py
