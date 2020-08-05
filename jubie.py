@@ -9,16 +9,7 @@ import random
 client = discord.Client()
 
 async def update_stuff():
-    while True:
-        my_death = datetime(2020, 4, 26, 19)
-        print(datetime.now())
-        lacking = my_death-datetime.now()
-        timedat=str(lacking).split(".")[0]
-        if str(lacking).startswith("-"):
-            await client.change_presence(activity=discord.Game("THANK YOU TO EVERYONE WHO PLAYED!!!"))
-        else:
-            await client.change_presence(activity=discord.Game(str(timedat)+" until houseplant ends"))
-        await asyncio.sleep(random.randint(5,15))
+    await client.change_presence(activity=discord.Game("Looking for sponsors..."))
 
 @client.event
 async def on_ready():
@@ -32,6 +23,15 @@ async def on_ready():
 async def on_raw_reaction_add(reaction):
     #get data
     emoji, messageid, channelid, user1=reaction.emoji, reaction.message_id, reaction.channel_id, reaction.user_id
+
+    # Add new user verification thingo
+    if messageid == 740551147558797322:
+        if emoji.name == "✅":
+            guild = client.get_guild(624036526157987851)
+            accepting_user = guild.get_member(user1)
+            await accepting_user.add_roles(guild.get_role(719631120685203466))
+            await client.get_channel(740546705686265856).send("User {} accepted the terms.".format(accepting_user))
+            return
 
     #pull message
     ch = client.get_channel(671167077930762250)
